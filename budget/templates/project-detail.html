@@ -1,0 +1,157 @@
+
+{% extends 'base.html' %}
+{% block title %} Project List {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <section class="section section-stats">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-12 col-lg"> <!-- depends on width of display -->
+                <div class="card">
+                    <div class="card-body">
+                    <h6 class="card-title mb-2 text-muted">Total Budget <span class="right"><a href="{% url 'edit_budget' project.id %}"><i class="far fa-edit"></i></a> </span></h6>
+                    <h1>{{ project.budget }} zł</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg">
+                <div class="card">
+                    <div class="card-body">
+                    <h6 class="card-title mb-2 text-muted">Budget left</h6>
+                    {% if project.budget_left > 0 %}
+                        <h1 class="green-text">{{ project.budget_left }} zł</h1>
+                    {% else %}
+                        <h1 class="red-text">{{ project.budget_left }} zł</h1>
+                    {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title mb-2 text-muted">Total Transaction : <span class="bold red-text">{{ project.total_transactions }}</span></h6>
+                        <h1> {{project.total_expense}} zł</h1>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+</div>
+
+
+
+<section class="container">
+        <div class="row">
+            <div class="col-auto mr-auto">
+                <a href="{% url 'list' %}" class="btn btn-primary "><i class="fas fa-home"></i></i> Home</a>
+            </div>
+            <div class="col-auto">
+                <button class="btn waves-effect right modal-trigger" href="#expenseModal"><i class="fas fa-plus-circle"></i> Add Expense</button>
+            </div>
+        </div>
+
+        <div class="row justify-content-around">
+            <div class="col-sm-12 col-md-6 col-lg-6 Dawid">
+                <table class="table table-striped text-center" id="user">
+                  <thead>
+                  <td colspan="3" class="bold nameUser">Dawid </td>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Cost</th>
+                      <th scope="col">Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for expense in expense_list %}
+                    {% if expense.category == 'Dawid' %}
+                    <tr>
+                      <td>{{ expense.expense_date|date:"d, m, Y" }}</td>
+                      <td class="bold">{{ expense.amount }} zł</td>
+                        <td>{{ expense.title }}<a href="{% url 'delete' expense.id %}" class="float-right close-icon"><i class="fas fa-times"></i></a></td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+                   </tbody>
+
+                </table>
+                <div class="row">
+                    <div class="col-4 offset-8">
+                        <p class="bold text-right">TOTAL : {{ project.total_expense_dawid}} zł</p><hr>
+                        <p class="bold text-right">TRANSACTIONS : {{ project.total_transactions_dawid}}</p><hr>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-6 col-lg-6 Julita">
+                <table class="table table-striped text-center" id="user">
+                  <thead>
+                  <td colspan="3" class="bold nameUser">Julita</td>
+                    <tr>
+                      <th scope="col">Date</th>
+                      <th scope="col">Cost</th>
+                      <th scope="col">Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for expense in expense_list %}
+                    {% if expense.category == 'Julita' %}
+                    <tr>
+                      <td>{{ expense.expense_date|date:"d, m, Y" }}</td>
+                      <td class="bold">{{ expense.amount }} zł</td>
+                        <td>{{ expense.title }}<a href="{% url 'delete' expense.id %}" class="float-right close-icon"><i class="fas fa-times"></i></a></td>
+                    </tr>
+                  {% endif %}
+                  {% endfor %}
+                   </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-4 offset-8">
+                        <p class="bold text-right">TOTAL : {{ project.total_expense_julita}} zł</p><hr>
+                        <p class="bold text-right">TRANSACTIONS : {{ project.total_transactions_julita}} </p><hr>
+                    </div>
+                </div>
+            </div>
+
+
+    </div>
+</section>
+
+
+
+<div id="expenseModal" class="modal">
+    <div class="modal-content">
+        <h4>Add Expense</h4>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="title" class="bold">Title</label>
+            <input name="title" id="title" placeholder="Food">
+
+            <label for="amount" class="bold">Amount</label>
+            <input name="amount" id="amount" placeholder="0.00 zł">
+
+            {{ category }}
+
+
+            <button type="submit" class="btn">Add</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+var elem = document.querySelector('.modal')
+var instance = M.Modal.init(elem)
+
+var elem = document.querySelector('select')
+var instance = M.FormSelect.init(elem)
+
+</script>
+
+{% endblock %}

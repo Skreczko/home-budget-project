@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Delete Project {% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    <div class="card" style="width: 600px; margin: auto;">
+    <div class="card-body">
+     <form method="post">   <!-- bez enctype, bo nie wnosimy tutaj zadnych plikow multimedialnych-->
+        {% csrf_token %}
+        <div >
+
+            <hr>
+            <h5>Date : {{ expense.expense_date|date:"d, m, Y" }}</h5>
+            <hr>
+            <h5>Title : {{ expense.title }}</h5>
+            <hr>
+            <h5>Amount : {{ expense.amount }} zł</h5>
+        </div>
+         <br>
+        <button type="submit" class="btn red"><i class="far fa-trash-alt"> Confirm</i></button>
+         <a href="{% url 'detail' expense.project.slug%}"> <button type="button" class="btn green right">No</button> </a>
+    </form>
+    </div>
+    </div>
+    </div>
+</div>
+
+
+{% endblock %}

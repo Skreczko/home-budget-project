@@ -1,0 +1,52 @@
+
+{% extends 'base.html' %}
+{% block title %} Project list {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text center">Months</h1>
+    <div class="row">
+        <div class="col-auto mr-auto">
+            <a href="{% url 'add' %}" class="btn btn-primary right">
+                    <i class="fas fa-plus-circle"></i>
+                    <span class="bold text-right">ADD NEW PROJECT</span>
+            </a>
+            </div>
+        <div class="col-auto">
+            <a href="{% url 'logout' %}" class="btn btn-primary left">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="bold text-right">LOGOUT</span>
+            </a>
+        </div>
+
+    </div>
+    <hr>
+    <hr>
+
+    <div class="row">
+    {% for project in project_list %}
+        <div class="col-sm-6 col-md-3 col-lg-4">
+            <div class="card-panel months">
+                <div class="row">
+                    <div class="col-auto mr-auto">
+                        <h5>{{ project.name }}</h5>
+                        <a href="{% url 'detail' project.slug %}" class="btn">Enter</a>
+                    </div>
+                    <div class="col-auto">
+                        <img src="/media/{{project.photo}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% empty %}
+    <div class="noproject text-center center">
+            <h2 class="text-secondary">Sorry, you don't have any project yet</h2>
+
+
+            </a>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}

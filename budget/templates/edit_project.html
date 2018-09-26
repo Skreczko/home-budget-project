@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Delete Project {% endblock %}
+{% load static %}
+
+{% block content %}
+    <div class="card" style="width: 600px; margin: auto; margin-top: 15%;">
+  <div class="card-body">
+     <form method="post">   <!-- bez enctype, bo nie wnosimy tutaj zadnych plikow multimedialnych-->
+        {% csrf_token %}
+
+        <h4>Change budget</h4>
+            <label for="budget" >New budget</label>
+            <input name="budget" id="budget" placeholder="zł">
+            <button type="submit" class="btn green">Confirm</button>
+        <a href="{{request.META.HTTP_REFERER}}"> <button type="button" class="btn blue right">Back</button> </a>
+    </form>
+  </div>
+</div>
+
+
+
+{% endblock %}

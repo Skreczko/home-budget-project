@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% load bootstrap %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <div class="login">
+                <div class="card login" style=" ">
+                    <div class="card-body">
+                        <h5 class="card-title">Zaloguj się</h5>
+                        <form role="form" method="post">
+                            {% csrf_token %}
+                            {{ form|bootstrap }}  <!-- automatycznie przymie wartość z movierater/urls.py z  auth_views-->
+                            <button type="submit" class="btn btn-primary">Login <i class="fas fa-sign-in-alt"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
