@@ -23,7 +23,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class ExpenseViewSet(viewsets.ModelViewSet):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
-# Create your views here.
+
 @login_required
 def project_list(request): #its in urls ->  path('<slug:project_slug>', fetching the correct project
     project_list = Project.objects.all()
