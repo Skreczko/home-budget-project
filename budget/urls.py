@@ -1,6 +1,12 @@
-
+from django.conf.urls import url, include
+from rest_framework import routers
 from django.urls import path
 from . import views
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'projects', views.ProjectViewSet)
+router.register(r'expenses', views.ExpenseViewSet)
 
 urlpatterns = [
     path('', views.project_list, name="list"),

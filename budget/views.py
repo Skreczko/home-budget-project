@@ -5,7 +5,24 @@ from django.views.generic import CreateView
 from django.utils.text import slugify
 from .forms import ExpenseForm, CategoryForm, ProjectForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from rest_framework import viewsets
+from .serializers import UserSerializer, ProjectSerializer, ExpenseSerializer
 
+
+# Create your views here.
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class ExpenseViewSet(viewsets.ModelViewSet):
+    queryset = Expense.objects.all()
+    serializer_class = ExpenseSerializer
 # Create your views here.
 @login_required
 def project_list(request): #its in urls ->  path('<slug:project_slug>', fetching the correct project
